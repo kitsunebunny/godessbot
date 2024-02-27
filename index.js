@@ -1,18 +1,16 @@
-client.on(Events.InteractionCreate, async interaction => {
-	if (interaction.isChatInputCommand()) {
-		// command handling
-	} else if (interaction.isAutocomplete()) {
-		const command = interaction.client.commands.get(interaction.commandName);
+// Require the necessary discord.js classes
+const { Client, Events, GatewayIntentBits } = require('discord.js');
+const { token } = require('./config.json');
 
-		if (!command) {
-			console.error(`No command matching ${interaction.commandName} was found.`);
-			return;
-		}
+// Create a new client instance
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
-		try {
-			await command.autocomplete(interaction);
-		} catch (error) {
-			console.error(error);
-		}
-	}
+// When the client is ready, run this code (only once).
+// The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.
+// It makes some properties non-nullable.
+client.once(Events.ClientReady, readyClient => {
+	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
+// Log in to Discord with your client's token
+client.login(token);
