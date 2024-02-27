@@ -1,0 +1,5 @@
+{
+	"token": "MTIwNTUxMzcyMDI3NzYzOTIxOQ.Gea3I6.nYWKdahxoyEvc8aHguaTIyQp6YGQz9MuL01KNY",
+	"clientId": "1205513720277639219",
+	"guildId": "1206261034260766843"
+}
