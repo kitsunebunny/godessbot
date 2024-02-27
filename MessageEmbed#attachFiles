@@ -1,8 +1,0 @@
-- channel.send(embed);
-+ channel.send({ embeds: [embed, embed2] });
-
-- channel.send('Hello!', { embed });
-+ channel.send({ content: 'Hello!', embeds: [embed, embed2] });
-
-- interaction.reply('Hello!', { ephemeral: true });
-+ interaction.reply({ content: 'Hello!', ephemeral: true });
