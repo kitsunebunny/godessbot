@@ -1,4 +1,0 @@
-const string = interaction.options.getString('input');
-const integer = interaction.options.getInteger('int');
-const boolean = interaction.options.getBoolean('choice');
-const number = interaction.options.getNumber('num');
