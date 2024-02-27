@@ -1,0 +1,7 @@
+const client = new Client({
+	makeCache: Options.cacheWithLimits({
+		MessageManager: 200, // This is default
+		PresenceManager: 0,
+		// Add more class names here
+	}),
+});
