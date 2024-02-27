@@ -1,5 +1,5 @@
 module.exports = {
-	data: new SlashCommandBuilder()
+	data: new SlashCommandBuilder(ping)
 		.setName('ping')
 		.setDescription('Replies with Pong!'),
 	async execute(interaction) {
