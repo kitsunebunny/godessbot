@@ -1,0 +1,4 @@
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isAutocomplete()) return;
+	// do autocomplete handling
+});
