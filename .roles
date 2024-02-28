@@ -1,0 +1,5 @@
+member.roles.cache.has('1210114221988118590');
+// returns true if the member has the role
+
+member.roles.cache.some(role => role.name === 'Mod');
+// returns true if any of the member's roles is exactly named " lead mod"
