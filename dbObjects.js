@@ -1,21 +1,40 @@
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
-const currency = new Collection();
+const Sequelize = require('sequelize');
 
-async function addBalance(id, amount) {
-	const user = currency.get(id);
+const sequelize = new Sequelize('database', 'username', 'password', {
+	host: 'localhost',
+	dialect: 'sqlite',
+	logging: false,
+	storage: 'database.sqlite',
+});
 
-	if (user) {
-		user.balance += Number(amount);
-		return user.save();
-	}
+const Users = require('./models/Users.js')(sequelize, Sequelize.DataTypes);
+const CurrencyShop = require('./models/CurrencyShop.js')(sequelize, Sequelize.DataTypes);
+const UserItems = require('./models/UserItems.js')(sequelize, Sequelize.DataTypes);
 
-	const newUser = await Users.create({ user_id: id, balance: amount });
-	currency.set(id, newUser);
+UserItems.belongsTo(CurrencyShop, { foreignKey: 'item_id', as: 'item' });
 
-	return newUser;
-}
+Reflect.defineProperty(Users.prototype, 'addItem', {
+	value: async item => {
+		const userItem = await UserItems.findOne({
+			where: { user_id: this.user_id, item_id: item.id },
+		});
 
-function getBalance(id) {
-	const user = currency.get(id);
-	return user ? user.balance : 0;
-}
+		if (userItem) {
+			userItem.amount += 1;
+			return userItem.save();
+		}
+
+		return UserItems.create({ user_id: this.user_id, item_id: item.id, amount: 1 });
+	},
+});
+
+Reflect.defineProperty(Users.prototype, 'getItems', {
+	value: () => {
+		return UserItems.findAll({
+			where: { user_id: this.user_id },
+			include: ['item'],
+		});
+	},
+});
+
+module.exports = { Users, CurrencyShop, UserItems };
