@@ -8,6 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 			'default': 0,
 		},
 	}, {
-		timestamps: false,
+		timestamps: true,
 	});
 };
