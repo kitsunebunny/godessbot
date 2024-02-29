@@ -1,1 +1,0 @@
-interaction.reply(`Websocket heartbeat: ${client.ws.ping}ms.`);
